@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Run! Zombiez</string>
+
+    <string name="home_tagline">Haven Base is calling, Runner 007.</string>
+    <string name="btn_start_mission">START MISSION</string>
+    <string name="btn_demo">DEMO</string>
+    <string name="btn_stop">STOP</string>
+    <string name="btn_help">HELP</string>
+
+    <string name="help_title">FIELD MANUAL</string>
+    <string name="help_body">Run! Zombiez is a hands-free audio mission. Pick a mission or tap DEMO, put your phone away, and move. Haven Base will guide you through radio transmissions, survivor chatter, and the threats along your route. Tap STOP at any time to abort and return to base.</string>
+
+    <string name="mission_active_label">MISSION IN PROGRESS</string>
+    <string name="mission_complete_label">MISSION COMPLETE — WELCOME HOME, RUNNER 007</string>
+</resources>

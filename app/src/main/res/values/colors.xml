@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark apocalyptic noir palette. Mirrored in ui/theme/Color.kt for Compose. -->
+    <color name="haven_black">#0A0A0B</color>
+    <color name="ash_gray">#2B2B2E</color>
+    <color name="bone_white">#E8E4DC</color>
+    <color name="warning_red">#B0231C</color>
+    <color name="emergency_amber">#D98324</color>
+    <color name="static_green">#3A5A40</color>
+</resources>

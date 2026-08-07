@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base platform theme; actual visual design lives in Compose (ui/theme). -->
+    <style name="Theme.RunZombiez" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/haven_black</item>
+        <item name="android:windowBackground">@color/haven_black</item>
+        <item name="android:navigationBarColor">@color/haven_black</item>
+    </style>
+</resources>
