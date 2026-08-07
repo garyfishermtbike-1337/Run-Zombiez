@@ -1,0 +1,35 @@
+{
+  "id": "outbreak_signal",
+  "name": "MISSION 01: TRANSIT DEPOT RUN",
+  "description": "Haven Base has lost contact with a supply cache at the old transit depot. Runner 007 is sent to recover it and find out what happened to the last team.",
+  "durationSeconds": 600,
+  "storyArtwork": "art/story_panels/transit_depot.svg",
+  "timeline": [
+    { "atSeconds": 0,   "type": "MUSIC_CUE",          "audioAsset": "music/main_theme.mp3",      "channel": "MUSIC", "loop": true, "volume": 0.55 },
+    { "atSeconds": 3,   "type": "HAVEN_TRANSMISSION", "audioAsset": "voice/haven_base/m1_intro.mp3", "speaker": "Haven Base", "text": "Runner 007, Haven Base. We've lost contact with the transit depot cache. Your job: get in, confirm status, get out.", "channel": "VOICE" },
+    { "atSeconds": 14,  "type": "SURVIVOR_DIALOGUE",  "audioAsset": "voice/runner007/m1_ack.mp3", "speaker": "Runner 007", "text": "Copy. Heading out now.", "channel": "VOICE" },
+    { "atSeconds": 25,  "type": "STORY_BEAT",         "artwork": "art/story_panels/gate_open.svg", "text": "The gates open onto a quiet street. Haven Base shrinks behind you." },
+
+    { "atSeconds": 45,  "type": "ENVIRONMENT_AMBIENCE","audioAsset": "sfx/environment/street_wind.mp3", "channel": "AMBIENCE", "loop": true, "volume": 0.35 },
+    { "atSeconds": 90,  "type": "HAVEN_TRANSMISSION", "audioAsset": "voice/haven_base/m1_checkin_1.mp3", "speaker": "Haven Base", "text": "You're clear for the next half mile. Nothing on our scanners yet.", "channel": "VOICE" },
+    { "atSeconds": 150, "type": "STORY_BEAT",         "artwork": "art/story_panels/overpass.svg", "text": "An overturned transport blocks the underpass. You find a way around." },
+    { "atSeconds": 190, "type": "ZOMBIE_ENCOUNTER",   "audioAsset": "sfx/zombies/groan_distant.mp3", "pan": -0.5, "text": "A low groan carries from a side street.", "channel": "SFX" },
+    { "atSeconds": 240, "type": "MUSIC_CUE",          "audioAsset": "music/tension_theme.mp3",   "channel": "MUSIC", "loop": true, "volume": 0.55 },
+    { "atSeconds": 245, "type": "ZOMBIE_ENCOUNTER",   "audioAsset": "sfx/zombies/groan_close.mp3",   "pan": 0.7,  "text": "It's closer. Keep your pace steady.", "channel": "SFX" },
+
+    { "atSeconds": 300, "type": "HAVEN_TRANSMISSION", "audioAsset": "voice/haven_base/m1_checkin_2.mp3", "speaker": "Haven Base", "text": "You're at the halfway point. Depot's two blocks ahead.", "channel": "VOICE" },
+    { "atSeconds": 340, "type": "SURVIVOR_DIALOGUE",  "audioAsset": "voice/runner007/m1_arrival.mp3", "speaker": "Runner 007", "text": "I'm at the depot. Door's already open.", "channel": "VOICE" },
+    { "atSeconds": 360, "type": "STORY_BEAT",         "artwork": "art/story_panels/depot_interior.svg", "text": "Inside, the cache is intact — but the last team's radio is still running, static hissing into the dark." },
+    { "atSeconds": 390, "type": "ZOMBIE_ENCOUNTER",   "audioAsset": "sfx/zombies/chase_stinger.mp3", "pan": 0.0,  "text": "Something moves between the shelves.", "channel": "SFX", "artwork": "art/story_panels/zombie_chase.svg" },
+    { "atSeconds": 400, "type": "MUSIC_CUE",          "audioAsset": "music/escape_theme.mp3",    "channel": "MUSIC", "loop": true, "volume": 0.6 },
+    { "atSeconds": 405, "type": "SURVIVOR_DIALOGUE",  "audioAsset": "voice/runner007/m1_run.mp3", "speaker": "Runner 007", "text": "Cache secured. Moving, now!", "channel": "VOICE" },
+    { "atSeconds": 430, "type": "ZOMBIE_ENCOUNTER",   "audioAsset": "sfx/zombies/groan_close.mp3",   "pan": -0.8, "text": "It's right behind you.", "channel": "SFX" },
+
+    { "atSeconds": 480, "type": "HAVEN_TRANSMISSION", "audioAsset": "voice/haven_base/m1_warning.mp3", "speaker": "Haven Base", "text": "We see it on the scanner. Don't slow down, Runner 007.", "channel": "VOICE" },
+    { "atSeconds": 520, "type": "ZOMBIE_ENCOUNTER",   "audioAsset": "sfx/zombies/groan_fade.mp3",    "pan": -1.0, "text": "The groan falls behind and fades.", "channel": "SFX" },
+    { "atSeconds": 560, "type": "MUSIC_CUE",          "audioAsset": "music/main_theme.mp3",      "channel": "MUSIC", "loop": true, "volume": 0.55 },
+    { "atSeconds": 570, "type": "HAVEN_TRANSMISSION", "audioAsset": "voice/haven_base/m1_outro.mp3", "speaker": "Haven Base", "text": "Gates are open, Runner 007. Bring it home.", "channel": "VOICE" },
+    { "atSeconds": 590, "type": "STORY_BEAT",         "artwork": "art/story_panels/gate_close.svg", "text": "The cache is secured. Haven Base eats tonight." },
+    { "atSeconds": 597, "type": "MISSION_COMPLETE" }
+  ]
+}

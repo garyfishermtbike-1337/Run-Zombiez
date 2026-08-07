@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#140f0c" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#sky3)" />
+
+  <polygon points="0,300 0,90 40,70 40,300" fill="#2B2B2E" />
+  <polygon points="360,300 360,70 400,90 400,300" fill="#2B2B2E" />
+
+  <!-- doors mid-close, narrow gap of light remaining -->
+  <polygon points="40,300 40,110 195,130 195,300" fill="#2B2B2E" />
+  <polygon points="360,300 360,110 205,130 205,300" fill="#2B2B2E" />
+  <rect x="195" y="130" width="10" height="170" fill="#D98324" opacity="0.6" />
+
+  <circle cx="20" cy="80" r="5" fill="#B0231C" />
+  <circle cx="380" cy="80" r="5" fill="#B0231C" />
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>

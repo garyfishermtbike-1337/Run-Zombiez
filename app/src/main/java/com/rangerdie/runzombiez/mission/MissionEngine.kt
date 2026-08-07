@@ -56,11 +56,15 @@ class MissionEngine(private val audioEngine: AudioEngine) {
     }
 
     private fun dispatch(event: MissionEvent) {
+        val isDialogue = event.type == MissionEventType.HAVEN_TRANSMISSION ||
+            event.type == MissionEventType.SURVIVOR_DIALOGUE
         _state.update {
             it.copy(
                 elapsedSeconds = event.atSeconds,
                 currentText = event.text ?: it.currentText,
-                currentSpeaker = event.speaker ?: it.currentSpeaker,
+                // Only dialogue events have a speaker — clear it for narration (zombie
+                // encounters, story beats) instead of leaving a stale name on screen.
+                currentSpeaker = if (isDialogue) event.speaker else null,
                 currentArtwork = event.artwork ?: it.currentArtwork
             )
         }
