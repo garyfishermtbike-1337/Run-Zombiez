@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <radialGradient id="radioGlow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#D98324" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#D98324" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="#0A0A0B" />
+
+  <!-- shelving silhouettes -->
+  <g fill="#2B2B2E">
+    <rect x="20" y="60" width="70" height="220" />
+    <rect x="110" y="40" width="70" height="240" />
+    <rect x="310" y="60" width="70" height="220" />
+  </g>
+  <g fill="#0A0A0B">
+    <rect x="20" y="110" width="70" height="6" />
+    <rect x="20" y="180" width="70" height="6" />
+    <rect x="110" y="100" width="70" height="6" />
+    <rect x="110" y="170" width="70" height="6" />
+    <rect x="310" y="110" width="70" height="6" />
+    <rect x="310" y="180" width="70" height="6" />
+  </g>
+
+  <!-- glowing radio on a crate, still transmitting -->
+  <circle cx="230" cy="220" r="60" fill="url(#radioGlow)" />
+  <rect x="205" y="205" width="50" height="30" rx="3" fill="#2B2B2E" />
+  <circle cx="245" cy="215" r="4" fill="#D98324" />
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>

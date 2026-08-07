@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="alleySky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#101010" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#alleySky)" />
+
+  <!-- alley walls, forced perspective -->
+  <polygon points="0,300 0,40 140,120 140,300" fill="#2B2B2E" />
+  <polygon points="400,300 400,40 260,120 260,300" fill="#2B2B2E" />
+  <polygon points="140,300 140,120 260,120 260,300" fill="#161617" />
+
+  <!-- distant hunched zombie silhouette -->
+  <g fill="#0A0A0B">
+    <ellipse cx="200" cy="238" rx="10" ry="8" />
+    <path d="M186,246 Q200,220 214,246 L214,272 L186,272 Z" />
+  </g>
+  <circle cx="196" cy="238" r="2" fill="#B0231C" />
+  <circle cx="204" cy="238" r="2" fill="#B0231C" />
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>

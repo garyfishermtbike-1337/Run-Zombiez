@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <radialGradient id="chaseGlow" cx="50%" cy="55%" r="65%">
+      <stop offset="0%" stop-color="#3a0f0c" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </radialGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#chaseGlow)" />
+
+  <!-- large, close zombie silhouette lunging toward the viewer -->
+  <g fill="#0A0A0B">
+    <path d="M140,300 C130,180 160,110 200,100 C240,110 270,180 260,300 Z" />
+    <ellipse cx="200" cy="94" rx="34" ry="30" />
+    <path d="M150,150 L100,190 L120,205 L165,168 Z" />
+    <path d="M250,150 L300,190 L280,205 L235,168 Z" />
+  </g>
+
+  <circle cx="188" cy="88" r="5" fill="#B0231C" />
+  <circle cx="212" cy="88" r="5" fill="#B0231C" />
+
+  <!-- motion streaks -->
+  <g stroke="#B0231C" stroke-width="3" opacity="0.4">
+    <line x1="40" y1="60" x2="90" y2="80" />
+    <line x1="40" y1="100" x2="90" y2="115" />
+    <line x1="310" y1="60" x2="360" y2="80" />
+    <line x1="310" y1="100" x2="360" y2="115" />
+  </g>
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>

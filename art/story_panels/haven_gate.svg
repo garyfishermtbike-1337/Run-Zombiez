@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </linearGradient>
+    <radialGradient id="beam1" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#D98324" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#D98324" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#sky1)" />
+  <rect width="400" height="300" fill="url(#beam1)" />
+
+  <!-- perimeter walls -->
+  <polygon points="0,300 0,160 60,140 60,300" fill="#0A0A0B" />
+  <polygon points="340,300 340,140 400,160 400,300" fill="#0A0A0B" />
+
+  <!-- gate towers -->
+  <polygon points="60,300 60,90 100,70 100,300" fill="#2B2B2E" />
+  <polygon points="300,300 300,70 340,90 340,300" fill="#2B2B2E" />
+
+  <!-- gate doors, sealed -->
+  <rect x="100" y="120" width="200" height="180" fill="#2B2B2E" />
+  <rect x="196" y="120" width="8" height="180" fill="#0A0A0B" />
+
+  <!-- amber warning lights -->
+  <circle cx="80" cy="100" r="5" fill="#D98324" />
+  <circle cx="320" cy="100" r="5" fill="#D98324" />
+
+  <!-- runner silhouette -->
+  <g fill="#0A0A0B">
+    <ellipse cx="200" cy="252" rx="9" ry="11" />
+    <rect x="192" y="262" width="16" height="34" rx="4" />
+  </g>
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>

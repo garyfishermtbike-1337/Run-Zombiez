@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="overpassSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#161311" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#overpassSky)" />
+
+  <!-- overpass structure -->
+  <rect x="0" y="70" width="400" height="40" fill="#2B2B2E" />
+  <rect x="40" y="110" width="24" height="120" fill="#2B2B2E" />
+  <rect x="336" y="110" width="24" height="120" fill="#2B2B2E" />
+
+  <!-- overturned transport silhouette -->
+  <g fill="#161617">
+    <rect x="150" y="210" width="140" height="46" rx="6" transform="rotate(-6 220 233)" />
+    <circle cx="175" cy="252" r="14" transform="rotate(-6 220 233)" />
+    <circle cx="255" cy="238" r="14" transform="rotate(-6 220 233)" />
+  </g>
+
+  <circle cx="330" cy="150" r="4" fill="#D98324" />
+
+  <rect x="0" y="286" width="400" height="14" fill="#0A0A0B" />
+</svg>
