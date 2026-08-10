@@ -88,9 +88,15 @@ class MissionEngine(private val audioEngine: AudioEngine) {
                     audioEngine.play(AudioChannel.SFX, it, targetVolume = 0.9f, pan = event.pan, fadeInMs = 200L)
                 }
 
-            MissionEventType.STORY_BEAT -> Unit // text/artwork already applied above
+            MissionEventType.STORY_BEAT ->
+                // Text/artwork already applied above; a story beat may also carry a one-shot
+                // cue (e.g. a gate creak) on whichever channel it specifies.
+                event.audioAsset?.let { audioEngine.play(event.channel, it, targetVolume = 0.8f, pan = event.pan, fadeInMs = 100L) }
 
-            MissionEventType.MISSION_COMPLETE -> complete()
+            MissionEventType.MISSION_COMPLETE -> {
+                event.audioAsset?.let { audioEngine.play(AudioChannel.SFX, it, targetVolume = 0.9f, fadeInMs = 100L) }
+                complete()
+            }
         }
     }
 
@@ -106,7 +112,10 @@ class MissionEngine(private val audioEngine: AudioEngine) {
     private fun complete() {
         timelineJob?.cancel()
         _state.update { it.copy(isRunning = false, isComplete = true) }
-        audioEngine.stopAll()
+        // Stop everything except SFX so a mission-complete sting (if any) can finish playing.
+        audioEngine.stop(AudioChannel.MUSIC)
+        audioEngine.stop(AudioChannel.VOICE)
+        audioEngine.stop(AudioChannel.AMBIENCE)
     }
 }
 
