@@ -3,6 +3,7 @@ package com.rangerdie.runzombiez.audio
 import androidx.media3.common.C
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.common.audio.BaseAudioProcessor
+import androidx.media3.common.util.UnstableApi
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.math.cos
@@ -18,6 +19,7 @@ import kotlin.math.sin
  * BaseAudioProcessor's exact method signatures have shifted slightly across
  * releases. Verify against the installed media3-common sources on first build.
  */
+@UnstableApi
 class PanAudioProcessor : BaseAudioProcessor() {
 
     /** -1.0 = full left, 0.0 = center, 1.0 = full right. */

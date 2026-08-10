@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!--
+    This project intentionally builds on Media3's unstable low-level audio-processor
+    APIs (BaseAudioProcessor, DefaultAudioSink.Builder, the 2-arg ExoPlayer.Builder)
+    for spatial zombie-encounter audio panning — see DECISIONS.md. Annotating every
+    caller up through MissionEngine/MissionViewModel/MainActivity with @OptIn would
+    just be noise for an already-accepted architectural decision, so opt in project-wide
+    instead, per Media3's own recommendation for this exact situation.
+    -->
+    <issue id="UnsafeOptInUsageError">
+        <option name="opt-in" value="androidx.media3.common.util.UnstableApi" />
+    </issue>
+</lint>

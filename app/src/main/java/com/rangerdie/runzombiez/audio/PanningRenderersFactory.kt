@@ -5,12 +5,14 @@ import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.common.util.UnstableApi
 
 /**
  * Injects extra [AudioProcessor]s (namely [PanAudioProcessor]) into an ExoPlayer
  * instance's audio pipeline. Only the SFX channel's player uses this — music,
  * voice, and ambience use the stock renderers factory.
  */
+@UnstableApi
 class PanningRenderersFactory(
     context: Context,
     private val extraProcessors: Array<AudioProcessor>

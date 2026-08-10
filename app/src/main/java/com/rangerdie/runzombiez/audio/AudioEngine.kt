@@ -5,6 +5,7 @@ import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.rangerdie.runzombiez.mission.AudioChannel
 import kotlinx.coroutines.CoroutineScope
@@ -21,6 +22,7 @@ private const val FADE_STEP_MS = 30L
  * with a custom [PanAudioProcessor] on the SFX channel for spatial zombie audio
  * (spec section 10).
  */
+@UnstableApi
 class AudioEngine(private val context: Context) {
 
     private val scope = CoroutineScope(SupervisorJob())

@@ -3,6 +3,7 @@ package com.rangerdie.runzombiez.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.util.UnstableApi
 import com.rangerdie.runzombiez.audio.AudioEngine
 import com.rangerdie.runzombiez.demo.DemoController
 import com.rangerdie.runzombiez.mission.MissionEngine
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
  * Owns the app's single [AudioEngine] and [MissionEngine] instance for the
  * lifetime of the process, so mission/demo playback survives screen navigation.
  */
+@UnstableApi
 class MissionViewModel(application: Application) : AndroidViewModel(application) {
 
     private val audioEngine = AudioEngine(application)

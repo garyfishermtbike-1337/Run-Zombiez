@@ -2,15 +2,18 @@
 
 A private, hands-free, cinematic zombie-survival running experience. Runner 007 leaves Haven Base, puts the phone away, and runs — the mission unfolds through radio transmissions, survivor dialogue, environmental audio, and zombie encounters.
 
-This is a personal project. See `docs/ORIGINAL_SPEC.md` (the full v2.0 master spec) for the complete original product vision, and `DECISIONS.md` for how it's evolved since — most importantly, **the active build is now a mobile web app (PWA), not the native Android app.**
+This is a personal project. See `docs/ORIGINAL_SPEC.md` (the full v2.0 master spec) for the complete original product vision, and `DECISIONS.md` for how it's evolved since. There are now **two working builds**: a mobile web app (PWA) and the native Android app the spec originally called for — see `DECISIONS.md` for why/when each happened.
 
 ## Current status
 
-**The active MVP is `web/` — a Progressive Web App, built, running, and verified in-browser.** Home → Demo/Start Mission → live mission playback → Stop/Complete → Home all work end to end, tested at a 375×812 mobile viewport. See [`web/README` section below](#web-app-active) and `STATUS.md` for the detailed handoff state.
+**Both platforms are real, working builds as of 2026-08-10.**
 
-`app/` (native Android/Kotlin/Compose) is **paused, kept as reference** — it was the original direction per the spec, but this dev environment has no Android SDK/Studio to build it, and the user opted for a website instead. See [Android app (paused)](#android-app-paused) below.
+- `web/` — a Progressive Web App, verified in-browser: Home → Demo/Start Mission → live mission playback → Stop/Complete → Home all work end to end. Deployed live at `https://garyfishermtbike-1337.github.io/Run-Zombiez/`. See [Web app](#web-app) below.
+- `app/` — native Android/Kotlin/Compose, verified with a real compiler and lint pass: `assembleDebug` succeeds and produces a valid APK, `lintDebug` passes clean. **Not yet installed/run on a device or emulator** — that's the next step. See [Android app](#android-app) below.
 
-## Web app (active)
+See `STATUS.md` for the full detailed handoff state on both.
+
+## Web app
 
 ```
 web/
@@ -65,9 +68,39 @@ This dev environment has no Android SDK, no Gradle, and only JDK 8 — none of w
 - No automated tests yet.
 - No GitHub remote configured — connect the private repo when you have it (spec section 35).
 
-## Android app (paused)
+## Android app
 
-The original spec called for native Android/Kotlin/Compose (`docs/ORIGINAL_SPEC.md` section 27). That code still lives under `app/`, `build.gradle.kts`, `settings.gradle.kts`, etc., and is a complete Phase 1-4 scaffold — Compose UI, a Media3-based audio engine with custom stereo panning, and the same mission-engine design as the web version. **It has never been compiled** (no Android SDK/Studio/JDK17 in this environment) and is not being actively developed right now. If you want to pick native Android back up later, start from `STATUS.md`'s "What is NOT done" section for the Android-specific risk areas.
+Native Android/Kotlin/Compose, per the original spec (`docs/ORIGINAL_SPEC.md` section 27) — `app/`, `build.gradle.kts`, `settings.gradle.kts` at the repo root. Same architecture as the web version: Compose UI (Home/Mission/Help + navigation), a data-driven `MissionEngine` on the same JSON schema, and a Media3-based `AudioEngine` with a custom `PanAudioProcessor`/`PanningRenderersFactory` for spatial stereo panning on zombie encounters.
+
+**Builds clean: `assembleDebug` succeeds, `lintDebug` passes.** Verified with a real Gradle build, not just written and assumed correct.
+
+### Build requirements
+
+- **Android Studio** (for the SDK/JDK it bundles, and for day-to-day development) — already installed if you're reading this on the dev laptop.
+- **A JDK 21 LTS to actually run Gradle with.** Android Studio's bundled JBR is JDK 25 as of this writing, which Gradle 8.7's embedded Kotlin-DSL compiler can't parse (`IllegalArgumentException: 25.0.2`). Point `JAVA_HOME` at a JDK 21 instead — a portable Temurin 21 was downloaded to `%LOCALAPPDATA%\jdk21-portable` for this project; reuse it or install your own.
+- **Gradle 8.7**, matching `gradle/wrapper/gradle-wrapper.properties`. No `gradlew`/`gradlew.bat` wrapper is committed (the wrapper jar is a binary file that couldn't be produced in this project's original text-only scaffolding session) — use a standalone Gradle 8.7 install instead of `./gradlew`. A portable copy was placed at `%LOCALAPPDATA%\gradle-portable\gradle-8.7`.
+- **Android SDK**: `platform-tools`, `platforms;android-34`, `build-tools;34.0.0`, installed via `sdkmanager` — a portable copy lives at `%LOCALAPPDATA%\Android\Sdk` if not already present from Android Studio's own setup.
+- `local.properties` (gitignored, create locally) pointing `sdk.dir` at your SDK install.
+
+### Build it
+
+```
+set JAVA_HOME=<path to a JDK 21>
+<path to gradle 8.7>\bin\gradle.bat assembleDebug
+```
+
+Or just open the project root in Android Studio and let it sync — Studio manages its own Gradle/JDK selection and doesn't hit the JDK 25 issue the CLI path does.
+
+### APK output
+
+`app/build/outputs/apk/debug/app-debug.apk` after a debug build (~11MB). Install to a connected device/emulator with `adb install app/build/outputs/apk/debug/app-debug.apk`.
+
+### Known issues / gaps
+
+- **Not yet installed/run on a device or emulator.** No emulator system image is installed and no physical device was connected during this build session — see `STATUS.md` for next steps.
+- No story-panel image display wired up in `MissionScreen.kt` — same gap the web app already closed with inline SVG rendering.
+- No automated tests (`app/src/test/` is empty).
+- No audio files, placeholder art only — see `docs/ASSETS.md` (shared gap with the web app).
 
 ## Deferred (by design, see DECISIONS.md)
 
