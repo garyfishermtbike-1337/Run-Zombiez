@@ -1,22 +1,22 @@
 # Status — Handoff State
 
-Last updated: 2026-08-10 (Phase 2: audio content). Real audio now exists and is wired into both platforms — this is the biggest single jump in "feels like the actual app" so far. Both `app/` and `web/` are real, working, and now have sound.
+Last updated: 2026-08-10 (Phase 2: audio content, now fully wired). Real audio exists, every sourced file is wired into both missions, and CC BY 4.0 attribution is shown in-app. Both `app/` and `web/` are real, working, and sound-complete for the two existing missions.
 
-## Audio content — NEW, sourced and wired 2026-08-10
+## Audio content — sourced and FULLY wired 2026-08-10
 
-30 files, 46MB, covering both missions on both platforms:
+30 files, 46MB, covering both missions on both platforms. All 30 are now used in at least one mission:
 
 - **14 voice lines** (`voice/haven_base/`, `voice/runner007/`) — generated with `edge-tts` (free, no account; `en-US-AriaNeural` for Haven Base, `en-US-GuyNeural` for Runner 007). Script lives in `docs/VOICE_SCRIPT.md`, text kept identical to the mission JSON's `text` fields.
-- **3 music tracks** (`music/`) — Kevin MacLeod / incompetech.com, CC BY 4.0. **Attribution is required and not yet shown anywhere in either app — see `docs/ASSETS.md` TODO before calling this shippable.**
-- **12 SFX** (`sfx/zombies/`, `sfx/environment/`, `sfx/ui/`) — Mixkit, no attribution required. 4 of these (`footsteps_running`, `radio_static_in/out`, `alarm`) are sourced but not yet wired into any mission timeline.
+- **3 music tracks** (`music/`) — Kevin MacLeod / incompetech.com, CC BY 4.0. **Attribution is now shown in-app** on both platforms' Help screen.
+- **12 SFX** (`sfx/zombies/`, `sfx/environment/`, `sfx/ui/`) — Mixkit, no attribution required. The last 4 (`footsteps_running`, `radio_static_in/out`, `alarm`) are now wired too: radio static brackets every Haven Base transmission (timed against each clip's real measured duration via `mutagen`), an alarm cue precedes each mission's warning transmission, and footsteps swap in on the ambience channel during each mission's escape beat.
 
 Full source/license breakdown per file: `docs/ASSETS.md`.
 
-**Engine change to support this:** `MissionEngine`/`mission-engine.js` previously ignored `audioAsset` on `STORY_BEAT` and `MISSION_COMPLETE` events even though the JSON schema supported it. Both now play it — this is what makes the gate-creak and mission-complete-sting cues work. `complete()` now stops MUSIC/VOICE/AMBIENCE by name instead of `stopAll()`, so the completion sting isn't cut off by its own completion.
+**Engine change to support this:** `MissionEngine`/`mission-engine.js` previously ignored `audioAsset` on `STORY_BEAT` and `MISSION_COMPLETE` events even though the JSON schema supported it. Both now play it — this is what makes the gate-creak, radio-static, alarm, and mission-complete-sting cues all work through the same generic path, no further engine changes needed for this round. `complete()` stops MUSIC/VOICE/AMBIENCE by name instead of `stopAll()`, so the completion sting isn't cut off by its own completion.
 
-**Verified working:** web app confirmed in-browser — Demo flow now fetches real audio files (200 OK: `main_theme.mp3`, `voice/haven_base/intro.mp3`, `voice/runner007/ack.mp3`, `gate_creak_open.wav`, `street_wind.wav`, `tension_theme.mp3`, ...) instead of the previous expected 404s, zero console errors. Android: `assembleDebug` + `lintDebug` both still pass clean after wiring the same audio in (APK is now ~59MB, up from ~11MB). **Not yet verified: actually hearing it** — no speaker output was checked in either environment; verification here means "the pipeline loads and plays the right file at the right time," not "it sounds good."
+**Verified working:** web app confirmed in-browser in a clean tab — Demo flow fetches all audio including the newly-wired SFX (200/206 OK), zero console warnings. (Warnings *did* appear during messier testing with overlapping demo runs across reloads/tabs — traced to test-session artifacts and the single-threaded Python dev server straining under concurrent requests, not a real bug; a fresh isolated tab run was clean.) Android: `assembleDebug` + `lintDebug` both pass clean after this round too (APK ~59MB). One transient `AccessDeniedException` build failure was hit and resolved — this project lives under a OneDrive-synced folder, and OneDrive occasionally locks files under `app/build/` mid-build; clearing the build directory and retrying fixed it. **Still not verified: actually hearing it** — no speaker output was checked in either environment; verification here means "the pipeline loads and plays the right file at the right time," not "it sounds good."
 
-**Service worker cache bumped to `runzombiez-v2`** since precached mission JSON content changed — needed so anyone with the PWA already installed doesn't get stuck serving stale JSON forever under the cache-first strategy.
+**Service worker cache bumped to `runzombiez-v3`** (was v2) since precached content (index.html, css, mission JSON) changed again this round.
 
 ## Android app (`app/`) — BUILT and VERIFIED
 
@@ -32,33 +32,29 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 - No automated tests (`app/src/test/` is still empty).
 - No story-panel art wired to display — `MissionScreen.kt` shows text/speaker only, same gap the web app already closed with inline SVG.
 - App icon is still the placeholder vector hazard-triangle mark.
-- Music attribution not shown anywhere in the UI (CC BY 4.0 requirement — see above).
 
 ## Web app (`web/`) — VERIFIED, live at GitHub Pages
 
-`https://garyfishermtbike-1337.github.io/Run-Zombiez/` (`gh-pages` branch, pushed as a subtree of `web/`). Home/Demo/Start Mission/Stop/Help all confirmed working, now with real audio loading correctly (see above). Two bugs found and fixed in the original 2026-08-07 pass (mission-start hang, stale-speaker-label) — both mirrored in Android's `MissionEngine.kt`.
+`https://garyfishermtbike-1337.github.io/Run-Zombiez/` (`gh-pages` branch, pushed as a subtree of `web/`). Home/Demo/Start Mission/Stop/Help all confirmed working, now with real audio (including the full SFX set) loading correctly. Two bugs found and fixed in the original 2026-08-07 pass (mission-start hang, stale-speaker-label) — both mirrored in Android's `MissionEngine.kt`.
 
 **Not yet done on web:**
-- Music attribution not shown anywhere in the UI.
 - Offline/installability (manifest + service worker) implemented but not stress-tested beyond initial load — worth an explicit airplane-mode retest now that the cache is ~46MB bigger.
-- `gh-pages` has been re-pushed and verified live (`main_theme.mp3`, voice, and SFX all return HTTP 200 from `https://garyfishermtbike-1337.github.io/Run-Zombiez/`) as of this update.
+- `gh-pages` needs re-pushing after this round's changes (radio static/alarm/footsteps wiring, Credits line) — confirm it's live before telling the user, same as last time.
 
 ## What's NOT done (either platform)
 
-- **Music attribution missing** (CC BY 4.0 requirement) — highest-priority remaining gap, see above.
 - **Art is placeholder-only** on both platforms; Android has no story-panel display at all yet.
-- 4 sourced SFX not wired into any timeline (`footsteps_running`, `radio_static_in/out`, `alarm`).
 - No automated tests on either platform.
-- Android not run on a device/emulator yet.
-- `gh-pages` branch is stale relative to `main` (missing the audio commit).
+- Android not run on a device/emulator yet — everything verified so far is "loads/plays the right file," not "sounds right" or "runs on real hardware."
+- App icon is still a placeholder on both platforms.
 
 ## Recommended next steps, in order
 
-1. Add a Credits/About surface on both platforms crediting Kevin MacLeod / incompetech.com per CC BY 4.0 (a line on the Help screen would satisfy this on web; `HelpScreen.kt` exists on Android too and needs the same treatment).
-2. **Get the Android APK onto a device or emulator and actually listen to it** — this hasn't been done at all yet; everything verified so far is "loads/plays the right file," not "sounds right."
-3. Decide whether to wire in the remaining 4 SFX (radio static in/out around each transmission, footsteps under running ambience, alarm during an escalation) or leave them for later polish.
-4. Wire up story-panel image display in `MissionScreen.kt` (Android).
-5. Write automated tests; nothing exists yet on either platform.
+1. **Get the Android APK onto a device or emulator and actually listen to it.**
+2. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG.
+3. Write automated tests; nothing exists yet on either platform.
+4. Replace placeholder art (app icon, story panels) with final key art.
+5. Consider a second mission — both existing ones now have a complete, wired audio pipeline as a template to follow.
 
 ## Key files to read first if resuming
 

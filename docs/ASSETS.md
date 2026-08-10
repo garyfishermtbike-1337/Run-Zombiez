@@ -51,7 +51,7 @@ All audio below lives under `app/src/main/assets/audio/` (Android) and `web/audi
 - **License: Creative Commons BY 4.0 — attribution required.** Required attribution text (per-track, from incompetech's own attribution generator):
   > "Shadowlands 1 - Horizon" / "SCP-x7x (6th Floor)" / "Shadowlands 5 - Antechamber" — Kevin MacLeod (incompetech.com)
   > Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/
-- **TODO:** this attribution is not yet displayed anywhere in either app. Add a Credits/About section (Help screen on web, a new screen or dialog on Android) before treating this as a finished, shippable build — CC BY is violated if the credit is never shown to end users, even for a private/personal app.
+- **Attribution is now shown in-app** on both platforms' Help screen (`web/index.html`'s `.credits` paragraph; `HelpScreen.kt` via `R.string.help_credits`).
 
 ### Sound effects (12 files, `sfx/zombies/`, `sfx/environment/`, `sfx/ui/`)
 
@@ -78,9 +78,14 @@ All audio below lives under `app/src/main/assets/audio/` (Android) and `web/audi
 
 ### Wired vs. sourced-but-not-wired
 
-**Wired into the mission timelines** (both `demo_mission.json` and `outbreak_signal.json`, both platforms): all voice lines, all 3 music tracks, `groan_distant`/`groan_close`/`groan_fade`/`chase_stinger`, `street_wind`, `gate_creak_open`/`gate_creak_close` (new `STORY_BEAT` audio support), `mission_complete` (new `MISSION_COMPLETE` audio support), and `horde_distant` (layered into Mission 01's depot-interior story beat as an ambience swap).
+**Everything is now wired into both mission timelines, both platforms.** All 12 SFX are used:
 
-**Sourced but not wired into any timeline yet:** `footsteps_running.wav`, `radio_static_in.wav`, `radio_static_out.wav`, `alarm.wav`. These exist under `sfx/environment/` and `sfx/ui/` and are ready to use, but adding them well means either new timeline events (radio static in/out bookending each transmission — ~14 more event pairs across both missions) or new engine capability (e.g. auto-layering a static blip whenever `AudioEngine` starts a VOICE cue). Left for a follow-up pass rather than bolted on quickly.
+- `groan_distant`/`groan_close`/`groan_fade`/`chase_stinger`, `street_wind`, `gate_creak_open`/`gate_creak_close`, `mission_complete`, `horde_distant` — wired in the first audio-content pass (see earlier commit).
+- `radio_static_in`/`radio_static_out` — bracket every `HAVEN_TRANSMISSION` line in both missions. Timed against each voice clip's actual measured duration (via `mutagen`) so the "out" click lands right as the line finishes rather than mid-sentence, not a fixed guess.
+- `alarm.wav` — fires just before each mission's tension/warning transmission (demo: before `warning.mp3`; Mission 01: before `m1_warning.mp3`).
+- `footsteps_running.wav` — swaps in on the AMBIENCE channel at each mission's escape beat (same `atSeconds` as the `escape_theme` music cue), replacing `street_wind`/`horde_distant`.
+
+No SFX-channel event shares an `atSeconds` value with another SFX-channel event in either mission (verified with a script) — two same-channel one-shots at the same second would silently cut one off.
 
 ### Engine changes made to support this
 
