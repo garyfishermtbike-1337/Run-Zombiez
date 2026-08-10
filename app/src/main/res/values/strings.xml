@@ -10,6 +10,7 @@
 
     <string name="help_title">FIELD MANUAL</string>
     <string name="help_body">Run! Zombiez is a hands-free audio mission. Pick a mission or tap DEMO, put your phone away, and move. Haven Base will guide you through radio transmissions, survivor chatter, and the threats along your route. Tap STOP at any time to abort and return to base.</string>
+    <string name="help_credits">Music: \"Shadowlands 1 - Horizon,\" \"SCP-x7x (6th Floor),\" and \"Shadowlands 5 - Antechamber\" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0 License (creativecommons.org/licenses/by/4.0/).</string>
 
     <string name="mission_active_label">MISSION IN PROGRESS</string>
     <string name="mission_complete_label">MISSION COMPLETE — WELCOME HOME, RUNNER 007</string>

@@ -6,22 +6,32 @@
   "storyArtwork": "story_panels/haven_gate.png",
   "timeline": [
     { "atSeconds": 0,  "type": "MUSIC_CUE",           "audioAsset": "music/main_theme.mp3",       "channel": "MUSIC" },
+    { "atSeconds": 1,  "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_in.wav",  "channel": "SFX" },
     { "atSeconds": 2,  "type": "HAVEN_TRANSMISSION",  "audioAsset": "voice/haven_base/intro.mp3",          "speaker": "Haven Base", "text": "This is Haven Base. Runner 007, do you copy?", "channel": "VOICE" },
+    { "atSeconds": 8,  "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_out.wav", "channel": "SFX" },
     { "atSeconds": 9,  "type": "SURVIVOR_DIALOGUE",   "audioAsset": "voice/runner007/ack.mp3",             "speaker": "Runner 007", "text": "Copy, Haven Base. Ready to move.", "channel": "VOICE" },
+    { "atSeconds": 15, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_in.wav",  "channel": "SFX" },
     { "atSeconds": 16, "type": "HAVEN_TRANSMISSION",  "audioAsset": "voice/haven_base/briefing.mp3",       "speaker": "Haven Base", "text": "Supply run to the old transit depot. Stay sharp — we've had movement on the east perimeter.", "channel": "VOICE" },
+    { "atSeconds": 23, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_out.wav", "channel": "SFX" },
     { "atSeconds": 25, "type": "STORY_BEAT",          "artwork": "story_panels/gate_open.png", "text": "The gates of Haven Base grind open. The road ahead is empty. For now.", "audioAsset": "sfx/environment/gate_creak_open.wav", "channel": "SFX" },
 
     { "atSeconds": 30, "type": "ENVIRONMENT_AMBIENCE","audioAsset": "sfx/environment/street_wind.wav",     "channel": "AMBIENCE" },
     { "atSeconds": 31, "type": "MUSIC_CUE",           "audioAsset": "music/tension_theme.mp3",    "channel": "MUSIC" },
     { "atSeconds": 38, "type": "ZOMBIE_ENCOUNTER",    "audioAsset": "sfx/zombies/groan_distant.wav", "pan": -0.6, "text": "Something moves in the alley to your left.", "channel": "SFX" },
     { "atSeconds": 46, "type": "ZOMBIE_ENCOUNTER",    "audioAsset": "sfx/zombies/groan_close.wav",   "pan": 0.8,  "text": "It's closer now. Passing on your right.", "channel": "SFX" },
+    { "atSeconds": 52, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/alarm.wav",             "channel": "SFX" },
+    { "atSeconds": 53, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_in.wav",  "channel": "SFX" },
     { "atSeconds": 54, "type": "HAVEN_TRANSMISSION",  "audioAsset": "voice/haven_base/warning.mp3",        "speaker": "Haven Base", "text": "Runner 007, we're reading multiple signatures nearby. Keep moving, don't stop.", "channel": "VOICE" },
+    { "atSeconds": 61, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_out.wav", "channel": "SFX" },
     { "atSeconds": 62, "type": "ZOMBIE_ENCOUNTER",    "audioAsset": "sfx/zombies/chase_stinger.wav", "pan": 0.0, "text": "It's seen you.", "channel": "SFX" },
     { "atSeconds": 68, "type": "MUSIC_CUE",           "audioAsset": "music/escape_theme.mp3",     "channel": "MUSIC" },
+    { "atSeconds": 68, "type": "ENVIRONMENT_AMBIENCE","audioAsset": "sfx/environment/footsteps_running.wav", "channel": "AMBIENCE", "loop": true, "volume": 0.4 },
     { "atSeconds": 73, "type": "SURVIVOR_DIALOGUE",   "audioAsset": "voice/runner007/effort.mp3",          "speaker": "Runner 007", "text": "Not today.", "channel": "VOICE" },
 
     { "atSeconds": 75, "type": "ZOMBIE_ENCOUNTER",    "audioAsset": "sfx/zombies/groan_fade.wav",    "pan": -1.0, "text": "The groan fades behind you.", "channel": "SFX" },
+    { "atSeconds": 79, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_in.wav",  "channel": "SFX" },
     { "atSeconds": 80, "type": "HAVEN_TRANSMISSION",  "audioAsset": "voice/haven_base/outro.mp3",          "speaker": "Haven Base", "text": "We have you on approach, Runner 007. Gates opening. Welcome home.", "channel": "VOICE" },
+    { "atSeconds": 87, "type": "STORY_BEAT",          "audioAsset": "sfx/ui/radio_static_out.wav", "channel": "SFX" },
     { "atSeconds": 88, "type": "STORY_BEAT",          "artwork": "story_panels/gate_close.png", "text": "The gates seal shut behind you. Haven Base holds — for one more day.", "audioAsset": "sfx/environment/gate_creak_close.wav", "channel": "SFX" },
     { "atSeconds": 93, "type": "MISSION_COMPLETE",    "audioAsset": "sfx/ui/mission_complete.wav", "channel": "SFX" }
   ]

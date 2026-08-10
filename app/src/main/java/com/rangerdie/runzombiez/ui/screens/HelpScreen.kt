@@ -38,6 +38,11 @@ fun HelpScreen(onBack: () -> Unit) {
             style = MaterialTheme.typography.bodyLarge,
             color = BoneWhite
         )
+        Text(
+            text = stringResource(R.string.help_credits),
+            style = MaterialTheme.typography.bodyMedium,
+            color = BoneWhite.copy(alpha = 0.55f)
+        )
         OutlinedButton(
             onClick = onBack,
             modifier = Modifier.fillMaxWidth().height(56.dp)
