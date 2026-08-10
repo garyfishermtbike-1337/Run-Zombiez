@@ -192,3 +192,10 @@ html, body {
   color: var(--bone-white);
   opacity: 0.9;
 }
+
+.credits {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--bone-white);
+  opacity: 0.55;
+}
