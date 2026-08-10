@@ -112,9 +112,21 @@ export class MissionEngine {
         break;
 
       case "STORY_BEAT":
-        break; // text/artwork already applied above
+        // Text/artwork already applied above; a story beat may also carry a
+        // one-shot cue (e.g. a gate creak) on whichever channel it specifies.
+        if (event.audioAsset) {
+          this.audioEngine.play(event.channel ?? "SFX", event.audioAsset, {
+            volume: 0.8,
+            pan: event.pan ?? 0,
+            fadeInMs: 100
+          });
+        }
+        break;
 
       case "MISSION_COMPLETE":
+        if (event.audioAsset) {
+          this.audioEngine.play("SFX", event.audioAsset, { volume: 0.9, fadeInMs: 100 });
+        }
         this.complete();
         break;
     }
@@ -133,7 +145,10 @@ export class MissionEngine {
     clearTimeout(this._pendingTimeout);
     clearTimeout(this._duckRestoreTimer);
     this.setState({ isRunning: false, isComplete: true });
-    this.audioEngine.stopAll();
+    // Stop everything except SFX so a mission-complete sting (if any) can finish playing.
+    this.audioEngine.stop("MUSIC");
+    this.audioEngine.stop("VOICE");
+    this.audioEngine.stop("AMBIENCE");
   }
 
   stop() {
