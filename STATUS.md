@@ -41,7 +41,7 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 **Not yet done on web:**
 - Music attribution not shown anywhere in the UI.
 - Offline/installability (manifest + service worker) implemented but not stress-tested beyond initial load — worth an explicit airplane-mode retest now that the cache is ~46MB bigger.
-- The GitHub Pages deployment (`gh-pages` branch) has **not been re-pushed since the audio was added** — it still only has the pre-audio web app. Re-run `git subtree push --prefix=web origin gh-pages` (or equivalent) before telling the user the live site has sound.
+- `gh-pages` has been re-pushed and verified live (`main_theme.mp3`, voice, and SFX all return HTTP 200 from `https://garyfishermtbike-1337.github.io/Run-Zombiez/`) as of this update.
 
 ## What's NOT done (either platform)
 
@@ -54,12 +54,11 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 
 ## Recommended next steps, in order
 
-1. **Push the audio update to `gh-pages`** so the live web app actually has sound — currently only `main` has it.
-2. Add a Credits/About surface on both platforms crediting Kevin MacLeod / incompetech.com per CC BY 4.0 (a line on the Help screen would satisfy this on web; Android has no Help-equivalent screen with real content yet, `HelpScreen.kt` exists though).
-3. **Get the Android APK onto a device or emulator and actually listen to it** — this hasn't been done at all yet; everything verified so far is "loads/plays the right file," not "sounds right."
-4. Decide whether to wire in the remaining 4 SFX (radio static in/out around each transmission, footsteps under running ambience, alarm during an escalation) or leave them for later polish.
-5. Wire up story-panel image display in `MissionScreen.kt` (Android).
-6. Write automated tests; nothing exists yet on either platform.
+1. Add a Credits/About surface on both platforms crediting Kevin MacLeod / incompetech.com per CC BY 4.0 (a line on the Help screen would satisfy this on web; `HelpScreen.kt` exists on Android too and needs the same treatment).
+2. **Get the Android APK onto a device or emulator and actually listen to it** — this hasn't been done at all yet; everything verified so far is "loads/plays the right file," not "sounds right."
+3. Decide whether to wire in the remaining 4 SFX (radio static in/out around each transmission, footsteps under running ambience, alarm during an escalation) or leave them for later polish.
+4. Wire up story-panel image display in `MissionScreen.kt` (Android).
+5. Write automated tests; nothing exists yet on either platform.
 
 ## Key files to read first if resuming
 
