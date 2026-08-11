@@ -60,12 +60,6 @@ html, body {
   display: block;
 }
 
-.tagline {
-  color: var(--bone-white);
-  opacity: 0.85;
-  margin: 0 0 16px;
-}
-
 .button-stack {
   width: 100%;
   display: flex;
@@ -101,30 +95,57 @@ html, body {
 }
 .btn-outline:hover { border-color: var(--emergency-amber); color: var(--emergency-amber); }
 
-/* Two-line label+caption variant, used by the four Home screen buttons only
+/* "Classic Look" icon-labeled variant, used by the Home screen's 4 buttons only
    (Mission/Help screen buttons keep the plain single-line .btn style). */
-.btn-captioned {
+.btn-bordered {
+  background: transparent;
+  color: var(--bone-white);
+  border-color: var(--ash-gray-light);
   height: auto;
-  min-height: 72px;
-  padding: 10px 16px;
+  min-height: 60px;
+  padding: 12px 18px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 3px;
+  justify-content: space-between;
+}
+.btn-bordered:hover { border-color: var(--emergency-amber); color: var(--emergency-amber); }
+
+.btn-danger {
+  border-color: var(--warning-red);
+  color: var(--warning-red);
+}
+.btn-danger:hover { border-color: var(--warning-red-dark); color: var(--warning-red-dark); }
+
+.btn-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.btn-label {
+.btn-icon {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.btn-icon-trailing {
+  font-size: 16px;
+}
+.btn-icon-trailing.accent {
+  color: var(--warning-red);
+}
+
+.btn-text {
   font: inherit;
 }
 
-.btn-caption {
-  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.3px;
-  text-transform: none;
-  opacity: 0.7;
+.button-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.button-row .btn {
+  flex: 1;
 }
 
 /* ---- Mission ---- */

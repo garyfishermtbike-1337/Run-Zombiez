@@ -1,6 +1,6 @@
 // Offline-first app shell cache. Bump CACHE_NAME whenever precached files change
 // so clients pick up the new version instead of serving stale assets forever.
-const CACHE_NAME = "runzombiez-v4";
+const CACHE_NAME = "runzombiez-v5";
 
 const PRECACHE_URLS = [
   "./",
