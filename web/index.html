@@ -8,7 +8,7 @@
   <title>Run! Zombiez</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -16,14 +16,26 @@
 
     <section id="screen-home" class="screen active">
       <div class="home-content">
-        <h1 class="title">RUN! ZOMBIEZ</h1>
+        <img class="hero" src="art/branding/hero.webp" alt="Run! Zombiez key art: Runner 007 running from zombies toward a red horizon, Haven Base flag in the distance." />
         <p class="tagline">Haven Base is calling, Runner 007.</p>
 
         <div class="button-stack">
-          <button id="btn-start" class="btn btn-primary">START MISSION</button>
-          <button id="btn-demo" class="btn btn-outline">DEMO</button>
-          <button id="btn-stop" class="btn btn-outline">STOP</button>
-          <button id="btn-help" class="btn btn-outline">HELP</button>
+          <button id="btn-start" class="btn btn-primary btn-captioned">
+            <span class="btn-label">START MISSION</span>
+            <span class="btn-caption">MISSION 01: TRANSIT DEPOT RUN · ~10 MIN</span>
+          </button>
+          <button id="btn-demo" class="btn btn-outline btn-captioned">
+            <span class="btn-label">DEMO</span>
+            <span class="btn-caption">~95 SEC PREVIEW OF THE FULL EXPERIENCE</span>
+          </button>
+          <button id="btn-stop" class="btn btn-outline btn-captioned">
+            <span class="btn-label">STOP</span>
+            <span class="btn-caption">ABORT AND RETURN TO HAVEN BASE</span>
+          </button>
+          <button id="btn-help" class="btn btn-outline btn-captioned">
+            <span class="btn-label">HELP</span>
+            <span class="btn-caption">FIELD MANUAL &amp; AUDIO CREDITS</span>
+          </button>
         </div>
       </div>
     </section>

@@ -10,20 +10,31 @@ Per spec section 41: every asset's source/status should be documented. This is t
 - **Licensed** — openly licensed, attribution/terms noted
 - **Placeholder** — temporary, must be replaced before a polished build
 
+## Key art / branding — added 2026-08-11
+
+The user dropped `Run! Zombiez Logo.png` (1254×1254, finished-quality dark-noir key art: Runner 007 fleeing zombies toward a red sun, "RUN! ZOMBIEZ / RUN. SURVIVE. GET HOME." baked in) plus two UI-direction mockup composites into the repo root. **Provenance/license of this art is not specified** — status below is marked "User-provided, provenance TBD"; confirm rights before any public/commercial distribution beyond this personal project.
+
+| Asset | Path | Status | Notes |
+|---|---|---|---|
+| Master key art | `art/branding/logo_master.png` | User-provided, provenance TBD | Original 1254×1254 source, relocated from repo root. Used to derive all icon/hero assets below via Pillow. |
+| UI-direction mockups | `art/concept/app_themes_mockup.png`, `app_themes_mockup_2.png` | User-provided, provenance TBD | Composite phone-frame comparisons of 3 visual directions ("Classic Look" / "Survivor Dash" / "Dark Harbor") + a theme-picker concept. Reference only, not usable as direct assets. "Classic Look" (Option 1) was adopted — see `DECISIONS.md`. The other two directions and the theme-switcher concept are not built. |
+
 ## Visual — Web app (`web/`)
 
 | Asset | Path | Status | Notes |
 |---|---|---|---|
-| App icon | `web/icons/icon.svg` | Original / Placeholder | Hand-authored SVG hazard-triangle mark. Works for Android "Add to Home Screen" (SVG icons supported); a PNG `apple-touch-icon` fallback would be needed for solid iOS support — not created, no rasterization tool available in this session. |
+| App icon | `web/icons/icon.svg`, `icon-{192,512}.png`, `icon-maskable-{192,512}.png`, `apple-touch-icon.png` | Derived from key art | SVG kept as the cheap favicon; PNGs derived from `logo_master.png` via Pillow — `icon-*` are full-bleed resizes (no OS mask, so the baked-in title is visible), `icon-maskable-*` use a safe-zone-cropped detail (runner + sun only) so the OS mask doesn't clip the title text. `apple-touch-icon.png` fixes a previously-documented gap: `<link rel="apple-touch-icon">` used to point at the SVG, which iOS Safari silently ignores. |
+| Home screen hero | `web/art/branding/hero.webp` | Derived from key art | 640×640 WebP, full-bleed resize (no crop) of the master. Rendered with `object-fit: contain` so nothing is ever clipped. |
 | Story panels | `web/art/story_panels/*.svg` | Original / Placeholder | 8 hand-authored SVG illustrations (`haven_gate`, `gate_open`, `gate_close`, `zombie_alley`, `zombie_chase`, `overpass`, `depot_interior`, `transit_depot`) — flat noir-silhouette style matching the palette, verified rendering inline in the mission screen. Simple placeholder compositions, not final key art. |
 
 ## Visual — Android app (`app/`)
 
 | Asset | Path | Status | Notes |
 |---|---|---|---|
-| App launcher icon | `app/src/main/res/drawable/ic_launcher_{background,foreground}.xml` | Placeholder | Simple vector hazard-triangle mark, same concept as the web icon. |
+| App launcher icon | `res/drawable/ic_launcher_background.xml` (unchanged, solid `HavenBlack`) + `res/mipmap-{m,h,xh,xxh,xxxh}dpi/ic_launcher_foreground.png` | Derived from key art | Foreground is the same safe-zone-cropped detail used for the web maskable icon, at the 5 standard adaptive-icon densities — see `DECISIONS.md` for why a naive full-image dump on either layer doesn't work (both layers are subject to the OS mask). Replaces the placeholder hazard-triangle vector. |
+| Home screen hero | `res/drawable-nodpi/home_hero.webp` | Derived from key art | Same 640×640 full-bleed WebP as web, `nodpi` since it's a photo not a density-scaled glyph. Rendered with `ContentScale.Fit`. |
 | Story panels | *(none)* | **Missing** | Mission JSON references artwork paths but `MissionScreen.kt` never wires up image display — text only. |
-| Concept art | `art/concept/` | Empty | Reserved for early visual-direction exploration. |
+| Concept art | `art/concept/` | See "Key art / branding" above | No longer empty — holds the two UI-direction mockups. |
 | UI textures/backgrounds | `art/ui/` | Empty | Reserved for distressed/noir texture overlays referenced in spec section 21. |
 
 ## Audio — sourced 2026-08-10, wired into both platforms

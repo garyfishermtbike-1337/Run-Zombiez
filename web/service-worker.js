@@ -1,6 +1,6 @@
 // Offline-first app shell cache. Bump CACHE_NAME whenever precached files change
 // so clients pick up the new version instead of serving stale assets forever.
-const CACHE_NAME = "runzombiez-v3";
+const CACHE_NAME = "runzombiez-v4";
 
 const PRECACHE_URLS = [
   "./",
@@ -15,6 +15,12 @@ const PRECACHE_URLS = [
   "missions/demo_mission.json",
   "missions/outbreak_signal.json",
   "icons/icon.svg",
+  "icons/icon-192.png",
+  "icons/icon-512.png",
+  "icons/icon-maskable-192.png",
+  "icons/icon-maskable-512.png",
+  "icons/apple-touch-icon.png",
+  "art/branding/hero.webp",
   "art/story_panels/haven_gate.svg",
   "art/story_panels/gate_open.svg",
   "art/story_panels/gate_close.svg",
