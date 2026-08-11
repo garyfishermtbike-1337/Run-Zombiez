@@ -1,6 +1,6 @@
 # Status — Handoff State
 
-Last updated: 2026-08-11 (first real-device test — found and fixed an actual crash). The app has now genuinely run on a physical phone for the first time in this project's history. It crashed. Now it doesn't. See "First on-device test" below — this is a bigger deal than it sounds, since nothing before this point had ever verified more than "the build compiles."
+Last updated: 2026-08-11. Two things happened today: (1) first real-device test — found and fixed an actual crash (see below, this is a bigger deal than it sounds), and (2) the Home screen buttons were rebuilt a second time to match the "Classic Look" mockup precisely after the user pointed back at it. The physical device (Samsung Galaxy S24 Ultra) was disconnected by the end of this session — the button rework was build-verified and checked in-browser (web), but **not re-confirmed on the physical device**.
 
 ## First on-device test — 2026-08-11
 
@@ -23,21 +23,18 @@ Expected thread: 'main'
 
 **Not yet verified:** whether the audio is actually audible (the phone's ringer showed a mute icon in several screenshots — unclear if that affects media volume; the user was mid-testing when this session's transcript captured stopped). Story-panel art still isn't wired on Android. No automated tests exist yet to catch a regression of this exact bug class in the future.
 
-## Branding — integrated 2026-08-11
+## Branding — integrated 2026-08-11, refined same day to match "Classic Look" exactly
 
-App icon and home screen now use the user-provided key art on both platforms — no more placeholder hazard-triangle icon or plain text title.
-
-## Branding — integrated 2026-08-11
-
-The user provided finished key art (`Run! Zombiez Logo.png`, now `art/branding/logo_master.png`) plus 3 UI-direction mockups. Adopted "Option 1: The Classic Look" only (already the app's existing red/black palette) — no multi-theme switcher, no new nav tabs, per explicit user direction.
+The user provided finished key art (`Run! Zombiez Logo.png`, now `art/branding/logo_master.png`) plus 3 UI-direction mockups (`art/concept/`). Adopted "Option 1: The Classic Look" only (already the app's existing red/black palette) — no multi-theme switcher, no new nav tabs, per explicit user direction.
 
 - **App icon** (both platforms): a Pillow-cropped detail (runner silhouette + red sun, no title text) used for masked contexts — Android's 5-density adaptive-icon foreground, web's maskable manifest icons — since the OS mask crops both adaptive-icon layers to a ~66% safe zone, not just one. Full-bleed resizes of the raw art used where there's no mask (Android's background layer stays a solid `HavenBlack` vector, web's "any"-purpose icons, `apple-touch-icon.png`). This also fixes a real pre-existing bug: `apple-touch-icon` used to point at an SVG, which iOS Safari silently ignores.
-- **Home screen** (both platforms): hero image replaces the plain text title, rendered with `contain`/`ContentScale.Fit` (not cropped) — the art's background is nearly black already, so letterboxing is invisible. The 4 existing buttons (same function, same IDs) gained two-line label+caption styling; captions use each mission's real duration (verified from the JSON, not the mockup's placeholder numbers).
+- **Home screen hero**: image replaces the plain text title, rendered with `contain`/`ContentScale.Fit` (not cropped) — the art's background is nearly black already, so letterboxing is invisible.
+- **Home screen buttons — rebuilt a second time same day** after the user pointed back at the Option 1 mockup specifically: single-line icon + label + optional trailing icon, no caption/subtitle text (the first pass had added two-line captions, closer to Option 2/3's style — removed). Order is Demo → Start Mission → (Stop, Help side-by-side row), matching the mockup; previously Start Mission was first and solid-red-filled as a "primary" button, which Option 1 doesn't actually show — no button in Option 1 is filled, all are dark with a thin border (red only for Stop). Icons are plain Unicode/emoji glyphs (💀 👣 ⏹ ❓ ▶ ›), not a new icon-library dependency. See `DECISIONS.md` for full reasoning.
 - Source mockup PNGs relocated from repo root into `art/branding/` and `art/concept/`.
 
-**Verified:** Android `assembleDebug`+`lintDebug` clean (hit the same OneDrive file-lock issue as before — see below — resolved the same way). Web verified in-browser: hero loads at correct size with no clipping, all 4 buttons render two clean lines with no overflow, no console errors, no horizontal scroll, service worker correctly rebuilt cache under `runzombiez-v4` with new assets precached. Live GitHub Pages site re-verified with the new branding after a normal Pages-build wait (not the CDN-propagation-lag issue seen earlier — this time the build itself just hadn't finished yet when first checked).
+**Verified:** Android `assembleDebug`+`lintDebug` clean on both passes (hit the OneDrive file-lock issue twice more — see below — plus two real compile errors this round: a nonexistent `OutlinedButtonDefaults` API used instead of `ButtonDefaults.outlinedButtonColors()`, and an incorrectly-imported internal `weight` function that should resolve implicitly via `RowScope` — both fixed). Web verified in-browser both passes: hero loads at correct size with no clipping, buttons render correctly with no overflow, no console errors, no horizontal scroll, service worker correctly rebuilt cache each time (`v4` then `v5`) with new assets precached, Demo flow still dispatches correctly after the full button markup rewrite. Live GitHub Pages site re-verified after the first pass; **not yet re-pushed to `gh-pages` after the second (Classic Look) pass** — do that before telling the user the live site matches.
 
-**New recurring build gotcha, now documented twice:** this project lives in a OneDrive-synced folder. OneDrive occasionally locks files under `app/build/` mid-build, causing `AccessDeniedException` on `mergeDebugResources`. Fix: `gradle --stop`, and if that doesn't fully release the daemon (check `tasklist | grep java`), kill the lingering `java.exe` PID directly, delete `app/build/`, retry. Not a code issue — don't waste time debugging the build itself when this happens.
+**Recurring build gotcha, now hit 4 times:** this project lives in a OneDrive-synced folder. OneDrive occasionally locks files under `app/build/` mid-build (`mergeDebugResources`, or this round also `compileDebugKotlin`'s cache directory), causing `AccessDeniedException`/`IOException: Unable to delete directory`. Fix is always the same: `gradle --stop`, check `tasklist | grep java` for a lingering daemon and kill it directly if `--stop` didn't fully release it, delete `app/build/`, retry. Not a code issue — don't waste time debugging the build itself when this happens; just redo the routine.
 
 **Not done:** the other 2 mockup color directions and the theme-switcher concept were explicitly deferred (see `DECISIONS.md`), not forgotten.
 
@@ -93,11 +90,13 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 
 ## Recommended next steps, in order
 
-1. **Get the Android APK onto a device or emulator and actually see/hear it.** Still hasn't happened at all — everything verified so far is "loads/plays/renders the right thing," not "works on real hardware."
-2. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG. App icon/hero art is done; the mission-timeline artwork gap is still open.
-3. Write automated tests; nothing exists yet on either platform.
-4. Consider a second mission — both existing ones now have a complete, wired audio pipeline and finished branding as a template to follow.
-5. If desired later: the deferred multi-theme switcher and the other 2 mockup color directions (see `DECISIONS.md`).
+1. **Re-verify the rebuilt Home screen buttons on the physical device**, and reinstall/relaunch to confirm the crash fix + Classic Look buttons both hold together on hardware — the device disconnected before this could happen this session.
+2. **Push `gh-pages`** — the web app's local files match Classic Look now, but the live GitHub Pages site still has the previous (captioned-button) version.
+3. Confirm audio is actually audible on-device — still unconfirmed either way.
+4. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG.
+5. Write automated tests; nothing exists yet on either platform, including nothing that would catch a regression of the `Dispatchers.Main` crash class.
+6. Consider a second mission — both existing ones now have a complete, wired audio pipeline and finished branding as a template to follow.
+7. If desired later: the deferred multi-theme switcher and the other 2 mockup color directions (see `DECISIONS.md`).
 
 ## Key files to read first if resuming
 

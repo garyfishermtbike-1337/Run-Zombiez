@@ -2,16 +2,11 @@
 <resources>
     <string name="app_name">Run! Zombiez</string>
 
-    <string name="home_tagline">Haven Base is calling, Runner 007.</string>
     <string name="home_hero_description">Run! Zombiez key art: Runner 007 running from zombies toward a red horizon, Haven Base flag in the distance.</string>
     <string name="btn_start_mission">START MISSION</string>
     <string name="btn_demo">DEMO</string>
     <string name="btn_stop">STOP</string>
     <string name="btn_help">HELP</string>
-    <string name="caption_start_mission">MISSION 01: TRANSIT DEPOT RUN · ~10 MIN</string>
-    <string name="caption_demo">~95 SEC PREVIEW OF THE FULL EXPERIENCE</string>
-    <string name="caption_stop">ABORT AND RETURN TO HAVEN BASE</string>
-    <string name="caption_help">FIELD MANUAL &amp; AUDIO CREDITS</string>
 
     <string name="help_title">FIELD MANUAL</string>
     <string name="help_body">Run! Zombiez is a hands-free audio mission. Pick a mission or tap DEMO, put your phone away, and move. Haven Base will guide you through radio transmissions, survivor chatter, and the threats along your route. Tap STOP at any time to abort and return to base.</string>

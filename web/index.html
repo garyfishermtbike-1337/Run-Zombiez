@@ -17,25 +17,36 @@
     <section id="screen-home" class="screen active">
       <div class="home-content">
         <img class="hero" src="art/branding/hero.webp" alt="Run! Zombiez key art: Runner 007 running from zombies toward a red horizon, Haven Base flag in the distance." />
-        <p class="tagline">Haven Base is calling, Runner 007.</p>
 
         <div class="button-stack">
-          <button id="btn-start" class="btn btn-primary btn-captioned">
-            <span class="btn-label">START MISSION</span>
-            <span class="btn-caption">MISSION 01: TRANSIT DEPOT RUN · ~10 MIN</span>
+          <button id="btn-demo" class="btn btn-bordered">
+            <span class="btn-icons">
+              <span class="btn-icon">💀</span>
+              <span class="btn-text">DEMO</span>
+            </span>
+            <span class="btn-icon btn-icon-trailing accent">▶</span>
           </button>
-          <button id="btn-demo" class="btn btn-outline btn-captioned">
-            <span class="btn-label">DEMO</span>
-            <span class="btn-caption">~95 SEC PREVIEW OF THE FULL EXPERIENCE</span>
+          <button id="btn-start" class="btn btn-bordered">
+            <span class="btn-icons">
+              <span class="btn-icon">👣</span>
+              <span class="btn-text">START MISSION</span>
+            </span>
+            <span class="btn-icon btn-icon-trailing">›</span>
           </button>
-          <button id="btn-stop" class="btn btn-outline btn-captioned">
-            <span class="btn-label">STOP</span>
-            <span class="btn-caption">ABORT AND RETURN TO HAVEN BASE</span>
-          </button>
-          <button id="btn-help" class="btn btn-outline btn-captioned">
-            <span class="btn-label">HELP</span>
-            <span class="btn-caption">FIELD MANUAL &amp; AUDIO CREDITS</span>
-          </button>
+          <div class="button-row">
+            <button id="btn-stop" class="btn btn-bordered btn-danger">
+              <span class="btn-icons">
+                <span class="btn-icon">⏹</span>
+                <span class="btn-text">STOP</span>
+              </span>
+            </button>
+            <button id="btn-help" class="btn btn-bordered">
+              <span class="btn-icons">
+                <span class="btn-icon">❓</span>
+                <span class="btn-text">HELP</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
