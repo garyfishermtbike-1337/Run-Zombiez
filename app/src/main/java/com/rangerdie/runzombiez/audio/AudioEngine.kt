@@ -9,6 +9,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.rangerdie.runzombiez.mission.AudioChannel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
@@ -25,7 +26,11 @@ private const val FADE_STEP_MS = 30L
 @UnstableApi
 class AudioEngine(private val context: Context) {
 
-    private val scope = CoroutineScope(SupervisorJob())
+    // ExoPlayer's Player interface requires all access on the main thread; without an
+    // explicit dispatcher here this scope defaults to Dispatchers.Default (a background
+    // pool), which crashes the moment fadeTo() reads/writes player.volume. Caught on a
+    // real device - never reproduced in the build-only verification this had before.
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var fadeJobs = mutableMapOf<AudioChannel, Job>()
 
     private val panProcessor = PanAudioProcessor()

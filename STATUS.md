@@ -1,6 +1,31 @@
 # Status — Handoff State
 
-Last updated: 2026-08-11 (real branding integrated). App icon and home screen now use the user-provided key art on both platforms — no more placeholder hazard-triangle icon or plain text title. See "Branding" section below for details; audio content (Phase 2, 2026-08-10) is unchanged and still fully wired.
+Last updated: 2026-08-11 (first real-device test — found and fixed an actual crash). The app has now genuinely run on a physical phone for the first time in this project's history. It crashed. Now it doesn't. See "First on-device test" below — this is a bigger deal than it sounds, since nothing before this point had ever verified more than "the build compiles."
+
+## First on-device test — 2026-08-11
+
+Connected the user's Samsung Galaxy S24 Ultra over USB (developer mode + USB debugging enabled), installed the current `app-debug.apk` via `adb install`, and drove it with `adb shell input`/`screencap`/`logcat` while the user kept the phone unlocked.
+
+**What worked immediately:** app installs, launches, Home screen renders exactly as designed (hero image, letterboxing genuinely invisible against the black background, all 4 captioned buttons correct), app icon renders cleanly in the launcher/app drawer (the safe-zone crop technique worked as intended — see `DECISIONS.md`).
+
+**What crashed:** tapping DEMO (or Start Mission — same code path) crashed the app almost immediately. `logcat` showed:
+```
+FATAL EXCEPTION: DefaultDispatcher-worker-3
+java.lang.IllegalStateException: Player is accessed on the wrong thread.
+Current thread: 'DefaultDispatcher-worker-3'
+Expected thread: 'main'
+	at androidx.media3.exoplayer.ExoPlayerImpl.getVolume(ExoPlayerImpl.java:1550)
+	at com.rangerdie.runzombiez.audio.AudioEngine$fadeTo$1.invokeSuspend(AudioEngine.kt:103)
+```
+**Root cause:** `AudioEngine`'s `CoroutineScope(SupervisorJob())` had no dispatcher specified, so it defaulted to `Dispatchers.Default` (a background thread pool). ExoPlayer requires all `Player` access on the main thread. Every `play()` call triggers a fade-in via `fadeTo()`, which reads/writes `player.volume` — so this crashed on essentially the first thing a user would ever do. **Fixed** by adding `Dispatchers.Main` to the scope (`app/src/main/java/com/rangerdie/runzombiez/audio/AudioEngine.kt`), matching the pattern `MissionEngine` already used correctly. Rebuilt, reinstalled, reran the exact same steps on the same device: Demo now runs past the crash point cleanly, confirmed via `logcat` showing zero `FATAL EXCEPTION`s and a screenshot of the mission screen mid-playback (Runner 007's line displaying on schedule).
+
+**Why this was never caught before:** no amount of `assembleDebug`/`lintDebug` passing catches a runtime threading violation — only actually running the app does. This bug had been latent since `AudioEngine.kt` was first written, many sessions ago. It's the clearest possible argument for why "builds clean" and "verified" are not the same claim, and why this was the right next priority.
+
+**Not yet verified:** whether the audio is actually audible (the phone's ringer showed a mute icon in several screenshots — unclear if that affects media volume; the user was mid-testing when this session's transcript captured stopped). Story-panel art still isn't wired on Android. No automated tests exist yet to catch a regression of this exact bug class in the future.
+
+## Branding — integrated 2026-08-11
+
+App icon and home screen now use the user-provided key art on both platforms — no more placeholder hazard-triangle icon or plain text title.
 
 ## Branding — integrated 2026-08-11
 
