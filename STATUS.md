@@ -47,7 +47,7 @@ Fixed by re-cropping `art/branding/logo_master.png` and changing both platforms'
 
 **Verified:** Android `assembleDebug` + `lintDebug` clean (hit the OneDrive file-lock issue a 5th time — same fix as always: kill the lingering `java.exe` daemon, delete `app/build/`, retry). Web verified via computed layout metrics in the Browser preview (screenshot tooling was down again this session) — confirmed hero renders at full viewport width with zero left offset and height scaling proportionally to the new crop's aspect ratio, buttons retain their 24px inset.
 
-**Not yet verified:** on-device visual confirmation on the physical phone — it disconnected again right as Android build finished (all 3 USB interfaces dropped to "Unknown" in Windows this time, not just the ADB one). User is reconnecting it now.
+**Confirmed on-device:** phone reconnected (its USB interfaces had all dropped to "Unknown" this time, not just the ADB one — resolved the same way as before, no driver reinstall needed). Installed and launched with zero crashes; screenshot confirms the hero renders full-bleed edge-to-edge exactly as intended — no letterbox bars, title/runner/flag all clean, buttons unchanged below it. `gh-pages` re-pushed and confirmed live via `curl` (waited out GitHub Pages' usual propagation lag — same pattern as every prior push this project). This closes the "doesn't look like the picture" feedback loop.
 
 ## Branding — integrated 2026-08-11, refined same day to match "Classic Look" exactly
 
@@ -113,12 +113,10 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 
 ## Recommended next steps, in order
 
-1. **Re-verify the full-bleed hero on the physical device** once it reconnects — build-verified and web-verified, not yet visually confirmed on hardware.
-2. **Push `gh-pages`** with the hero fix — web's local files are updated, live site is not yet re-pushed.
-3. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG.
-4. Write automated tests; nothing exists yet on either platform, including nothing that would catch a regression of the `Dispatchers.Main` crash class.
-5. Consider a second mission — both existing ones now have a complete, wired audio pipeline and finished branding as a template to follow.
-6. If desired later: the deferred multi-theme switcher and the other 2 mockup color directions (see `DECISIONS.md`).
+1. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG.
+2. Write automated tests; nothing exists yet on either platform, including nothing that would catch a regression of the `Dispatchers.Main` crash class.
+3. Consider a second mission — both existing ones now have a complete, wired audio pipeline and finished branding as a template to follow.
+4. If desired later: the deferred multi-theme switcher and the other 2 mockup color directions (see `DECISIONS.md`).
 
 ## Key files to read first if resuming
 
