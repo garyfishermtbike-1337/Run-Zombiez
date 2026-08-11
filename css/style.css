@@ -42,8 +42,17 @@ html, body {
 }
 
 /* ---- Home ---- */
+/* Full-bleed hero: this screen alone drops the shared .screen padding so the
+   hero image can touch both edges; the status-bar/notch inset is kept so it
+   still starts below the status bar rather than drawing behind it. */
+#screen-home {
+  padding-top: env(safe-area-inset-top);
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .home-content {
-  margin: auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 420px;
   text-align: center;
@@ -55,13 +64,13 @@ html, body {
 
 .hero {
   width: 100%;
-  max-height: 220px;
-  object-fit: contain;
+  height: auto;
   display: block;
 }
 
 .button-stack {
   width: 100%;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
