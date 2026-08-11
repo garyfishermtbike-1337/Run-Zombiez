@@ -1,6 +1,24 @@
 # Status — Handoff State
 
-Last updated: 2026-08-10 (Phase 2: audio content, now fully wired). Real audio exists, every sourced file is wired into both missions, and CC BY 4.0 attribution is shown in-app. Both `app/` and `web/` are real, working, and sound-complete for the two existing missions.
+Last updated: 2026-08-11 (real branding integrated). App icon and home screen now use the user-provided key art on both platforms — no more placeholder hazard-triangle icon or plain text title. See "Branding" section below for details; audio content (Phase 2, 2026-08-10) is unchanged and still fully wired.
+
+## Branding — integrated 2026-08-11
+
+The user provided finished key art (`Run! Zombiez Logo.png`, now `art/branding/logo_master.png`) plus 3 UI-direction mockups. Adopted "Option 1: The Classic Look" only (already the app's existing red/black palette) — no multi-theme switcher, no new nav tabs, per explicit user direction.
+
+- **App icon** (both platforms): a Pillow-cropped detail (runner silhouette + red sun, no title text) used for masked contexts — Android's 5-density adaptive-icon foreground, web's maskable manifest icons — since the OS mask crops both adaptive-icon layers to a ~66% safe zone, not just one. Full-bleed resizes of the raw art used where there's no mask (Android's background layer stays a solid `HavenBlack` vector, web's "any"-purpose icons, `apple-touch-icon.png`). This also fixes a real pre-existing bug: `apple-touch-icon` used to point at an SVG, which iOS Safari silently ignores.
+- **Home screen** (both platforms): hero image replaces the plain text title, rendered with `contain`/`ContentScale.Fit` (not cropped) — the art's background is nearly black already, so letterboxing is invisible. The 4 existing buttons (same function, same IDs) gained two-line label+caption styling; captions use each mission's real duration (verified from the JSON, not the mockup's placeholder numbers).
+- Source mockup PNGs relocated from repo root into `art/branding/` and `art/concept/`.
+
+**Verified:** Android `assembleDebug`+`lintDebug` clean (hit the same OneDrive file-lock issue as before — see below — resolved the same way). Web verified in-browser: hero loads at correct size with no clipping, all 4 buttons render two clean lines with no overflow, no console errors, no horizontal scroll, service worker correctly rebuilt cache under `runzombiez-v4` with new assets precached. Live GitHub Pages site re-verified with the new branding after a normal Pages-build wait (not the CDN-propagation-lag issue seen earlier — this time the build itself just hadn't finished yet when first checked).
+
+**New recurring build gotcha, now documented twice:** this project lives in a OneDrive-synced folder. OneDrive occasionally locks files under `app/build/` mid-build, causing `AccessDeniedException` on `mergeDebugResources`. Fix: `gradle --stop`, and if that doesn't fully release the daemon (check `tasklist | grep java`), kill the lingering `java.exe` PID directly, delete `app/build/`, retry. Not a code issue — don't waste time debugging the build itself when this happens.
+
+**Not done:** the other 2 mockup color directions and the theme-switcher concept were explicitly deferred (see `DECISIONS.md`), not forgotten.
+
+## Audio content — sourced and FULLY wired 2026-08-10
+
+30 files, 46MB, covering both missions on both platforms. All 30 are now used in at least one mission:
 
 ## Audio content — sourced and FULLY wired 2026-08-10
 
@@ -50,11 +68,11 @@ Full source/license breakdown per file: `docs/ASSETS.md`.
 
 ## Recommended next steps, in order
 
-1. **Get the Android APK onto a device or emulator and actually listen to it.**
-2. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG.
+1. **Get the Android APK onto a device or emulator and actually see/hear it.** Still hasn't happened at all — everything verified so far is "loads/plays/renders the right thing," not "works on real hardware."
+2. Wire up story-panel image display in `MissionScreen.kt` (Android) — web already does this with inline SVG. App icon/hero art is done; the mission-timeline artwork gap is still open.
 3. Write automated tests; nothing exists yet on either platform.
-4. Replace placeholder art (app icon, story panels) with final key art.
-5. Consider a second mission — both existing ones now have a complete, wired audio pipeline as a template to follow.
+4. Consider a second mission — both existing ones now have a complete, wired audio pipeline and finished branding as a template to follow.
+5. If desired later: the deferred multi-theme switcher and the other 2 mockup color directions (see `DECISIONS.md`).
 
 ## Key files to read first if resuming
 
