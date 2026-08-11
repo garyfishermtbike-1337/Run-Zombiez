@@ -4,16 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -45,27 +41,29 @@ fun HomeScreen(
     onStop: () -> Unit,
     onHelp: () -> Unit
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(HavenBlack)
-            .padding(PaddingValues(horizontal = 32.dp, vertical = 48.dp)),
-        contentAlignment = Alignment.Center
+            .background(HavenBlack),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
+        // Full-bleed: no horizontal/top padding here so the hero touches both
+        // screen edges and starts immediately below the status bar.
+        Image(
+            painter = painterResource(R.drawable.home_hero),
+            contentDescription = stringResource(R.string.home_hero_description),
             modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp)
+                .padding(top = 18.dp, bottom = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Image(
-                painter = painterResource(R.drawable.home_hero),
-                contentDescription = stringResource(R.string.home_hero_description),
-                modifier = Modifier.fillMaxWidth().heightIn(max = 220.dp),
-                contentScale = ContentScale.Fit
-            )
-
-            Spacer(modifier = Modifier.height(18.dp))
-
             IconLabelButton(
                 label = stringResource(R.string.btn_demo),
                 leadingIcon = "💀", // skull
