@@ -53,13 +53,11 @@ html, body {
   gap: 16px;
 }
 
-.title {
-  font-size: clamp(2rem, 9vw, 2.75rem);
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  color: var(--warning-red);
-  margin: 0;
-  text-shadow: 0 0 24px rgba(176, 35, 28, 0.35);
+.hero {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
 }
 
 .tagline {
@@ -102,6 +100,32 @@ html, body {
   border-color: var(--ash-gray-light);
 }
 .btn-outline:hover { border-color: var(--emergency-amber); color: var(--emergency-amber); }
+
+/* Two-line label+caption variant, used by the four Home screen buttons only
+   (Mission/Help screen buttons keep the plain single-line .btn style). */
+.btn-captioned {
+  height: auto;
+  min-height: 72px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.btn-label {
+  font: inherit;
+}
+
+.btn-caption {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  opacity: 0.7;
+}
 
 /* ---- Mission ---- */
 .mission-content {
